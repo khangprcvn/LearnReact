@@ -5,16 +5,20 @@ class ProductTable extends Component {
   render() {
     const rows = [];
     let lastCategory = null;
+
     this.props.products.forEach(product => {
       if (product.category !== lastCategory) {
         rows.push(
-          <ProductCategoryRow category={product.category} key={product.category} />
+          <ProductCategoryRow
+            category={product.category}
+            key={product.category}
+          />
         );
-      } else {
-        rows.push(<ProductRow product={product} key={product.name} />);
       }
+      rows.push(<ProductRow product={product} key={product.name} />);
       lastCategory = product.category;
     });
+
     return (
       <table>
         <thead>
