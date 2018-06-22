@@ -2,6 +2,28 @@ import React, { Component } from 'react';
 import ProductTable from '../ProductTable/ProductTable';
 import SearchBar from '../SearchBar/SearchBar';
 class FilterProductTable extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filterText: '',
+      inStockOnly: false
+    };
+
+    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    this.handleInStockChange = this.handleInStockChange.bind(this);
+  }
+
+  handleFilterTextChange(filterText) {
+    this.setState({
+      filterText: filterText
+    });
+  }
+
+  handleInStockChange(inStockOnly) {
+    this.setState({
+      inStockOnly: inStockOnly
+    });
+  }
   render() {
     const PRODUCTS = [
       {
@@ -43,8 +65,17 @@ class FilterProductTable extends Component {
     ];
     return (
       <div>
-        <SearchBar />
-        <ProductTable  products = {PRODUCTS}/>
+        <SearchBar
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+          onFilterTextChange={this.handleFilterTextChange}
+          onInStockChange={this.handleInStockChange}
+        />
+        <ProductTable
+          products={PRODUCTS}
+          filterText={this.state.filterText}
+          inStockOnly={this.state.inStockOnly}
+        />
       </div>
     );
   }
